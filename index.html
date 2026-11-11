@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Add Course page </title>
+</head>
+<body>
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+   <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="drawer" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" aria-hidden="true"></span>
+    </button>
+    <dialog class="drawer drawer-end" tabindex="-1" id="navbarNavAltMarkup" aria-labelledby="navbarNavAltMarkupLabel">
+      <div class="drawer-header">
+        <h5 class="drawer-title" id="navbarNavAltMarkupLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Close"></button>
+      </div>
+      <div class="drawer-body">
+        <div class="nav nav-pills navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </div>
+      </div>
+    </dialog>
+  </div>
+</nav>
+    </header>
+    <main>
+        <div class="container mt-5 col-12">
+            <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Chapter name" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <button id="add_btn" class="btn btn-outline-success" type="button" id="button-addon2">Add</button>
+   </div>
+        </div>
+<div class="container"> 
+        <ul id ="parentList" class="list-group">
+  <li class="list-group-item d-flex justify-content-between">
+    <h3> Chapter 1 </h3>
+     <button class="btn btn-warning">Edit</button></li>
+     <button class="btn btn-warning">Remove</button></li>
+       </ul>
+ </div>
+</main>
+
+<script>
+      
+    const addBtn = document.getElementById('add_btn');
+    const parentList = document.getElementById('parentList');
+
+    addBtn.addEventListener('click', () => {
+        const inputField = document.querySelector('.form-control');
+        const chapterName = inputField.value.trim();
+
+        if (chapterName) {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between';
+            listItem.innerHTML = `
+                <h3>${chapterName}</h3>
+                <div>
+                    <button class="btn btn-warning edit-btn">Edit</button>
+                    <button class="btn btn-danger remove-btn">Remove</button>
+                </div>
+            `;
+
+            parentList.appendChild(listItem);
+            inputField.value = ''; // Clear the input field
+
+            // Add event listeners for the new buttons
+            const editBtn = listItem.querySelector('.edit-btn');
+            const removeBtn = listItem.querySelector('.remove-btn');
+
+            editBtn.addEventListener('click', () => {
+                const newChapterName = prompt('Enter new chapter name:', chapterName);
+                if (newChapterName) {
+                    listItem.querySelector('h3').textContent = newChapterName;
+                }
+            });
+
+            removeBtn.addEventListener('click', () => {
+                parentList.removeChild(listItem);
+            });
+        }
+    });
+</script>
+</body>
+</html>
+
